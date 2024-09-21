@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos Agregados esta Semana</title>
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgb(99, 218, 147);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .header img {
+            max-width: 100%;
+            height: auto;
+        }
+        .content {
+            color: white;
+            text-align: center;
+        }
+        .content p {
+            margin: 20px 0;
+            font-size: 1.3em;
+            color: #f8f8f8;
+        }
+        .product {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 10px 0;
+            display: inline-block;
+            width: 75%;
+            max-width: 450px;
+            box-shadow: 0 0 7px 1px #333;
+            vertical-align: top;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 10px;
+            color: rgb(44, 139, 82);
+        }
+        .product-info h3 {
+            font-size: 2em; /* Tamaño más grande para el nombre del producto */
+            margin: 10px 0 2px 0;
+            color: rgb(44, 139, 82);
+            text-shadow: 1px 1px 2px #000;
+        }
+        .product-info p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: rgb(44, 139, 82);
+        }
+        .product-category {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .footer {
+            background-color: rgb(99, 218, 147);
+            color: #f8f8f8;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.3em;
+        }
+        @media (max-width: 600px) {
+            .product-info h3 {
+                font-size: 1.5em; /* Ajuste para móviles */
+            }
+            .product-info p {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="container">
+    <tr>
+        <td class="header">
+            <img src="cid:logo" alt="Logo ECOSistema">
+        </td>
+    </tr>
+    <tr>
+        <td class="content">
+            <p>Hola, <span th:text="${toName}">Nombre del Remitente</span></p>
+            <p>Aquí tienes los productos que han sido agregados esta semana. ¡Te invitamos a visitar nuestra app para ver más detalles!</p>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td>
+                        <div th:if="${acceptedProducts.size() > 0}">
+                            <h3 style="font-size: 1.8em; text-shadow: 1px 1px 2px #000;">Lo Nuevo de esta Semana:</h3>
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr th:each="product : ${acceptedProducts}">
+                                    <td class="product">
+                                        <img th:src="@{${product.imagesURLs[0]}}" alt="Imagen del producto">
+                                        <div class="product-info">
+                                            <div class="product-category" th:text="${product.category.name}">Categoría</div>
+                                            <h3 th:text="${product.name}">Nombre del Producto</h3>
+                                            <p th:text="${product.shortDescription}">Descripción Corta</p>
+                                            <p style="margin-top: 15px;">
+                                                <span th:text="${product.city}"></span>,
+                                                <span th:text="${product.province.name}"></span>,
+                                                <span th:text="${product.country.name}"></span>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="footer">
+            <p>Gracias por ser parte de ECOSistema,</p>
+            <p>El equipo de <strong style="color: #6a5acd;">ECOSistema</strong></p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
